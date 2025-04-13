@@ -67,7 +67,7 @@ Please Note: From the node-red import file node_red_flow.json (it uses MQTT) you
 
 Board Wiring
 ---------------------------------
-![wiring](images/wiring.gif)
+![wiring](images/wiring.png)
 
 Specify number of LED modules used (change the below value in 01_Shared.h to 8, 12, etc..): 
 ```
@@ -76,9 +76,9 @@ Specify number of LED modules used (change the below value in 01_Shared.h to 8, 
 
 MAX7219 Pinout Code Definition (change pin below in 01_Shared.h if you use different pins):
 ```
-#define CLK_PIN D5 // or SCK
-#define DATA_PIN D7 // or MOSI
-#define CS_PIN D8
+#define CLK_PIN   D5  // or SCK
+#define DATA_PIN  D7  // or MOSI
+#define CS_PIN    D8
 ```
 
 Buzzer Pinout Code Definition (change pin below in 01_Shared.h if you use different pins):
@@ -88,23 +88,19 @@ Buzzer Pinout Code Definition (change pin below in 01_Shared.h if you use differ
 
 Web Interface
 ---------------------------------
-![homepage](images/homepage.jpg)
+![homepage](images/homepage.png)
 
-![password_change](images/password_change.jpg)
+![password_change](images/password_change.png)
 
-![mqtt_config](images/mqtt_config.jpg)
+![mqtt_config](images/mqtt_config.png)
 
-![password_change](images/update_firmware.jpg)
-
-
+![password_change](images/update_firmware.png)
 
 Project Case Example 1
 ---------------------------------
 ![example_a1](images/example_a1.jpg)
 
 ![example_a2](images/example_a2.jpg)
-
-
 
 Project Case Example 2
 ---------------------------------
@@ -114,17 +110,21 @@ Project Case Example 2
 
 ![example_b3](images/example_b3.jpg)
 
-
 URL Argument / HTTP-API and MQTT JSON Parameters:
----------------------------------
-```
-MSG -> Message to display on dot matrix
-REP -> Number of times the message scrolls horizontally across the dot matrix
-BUZ -> Number of times the buzzer makes a sound (chirps) in repeated succession
-DEL -> Delay in millisecond for each scrolling step (speed of scrolling message)
-BRI -> Brightness of LED display (values ranging from 0 lowest to 15 highest)
-ASC -> ASCII coversion to enable correct translation of UTF8 Extended ASCII Characters
-```
+-------------------------------------------------
+
+`MSG` -> Message to display on dot matrix
+
+`REP` -> Number of times the message scrolls horizontally across the dot matrix
+
+`BUZ` -> Number of times the buzzer makes a sound (chirps) in repeated succession
+
+`DEL` -> Delay in millisecond for each scrolling step (speed of scrolling message)
+
+`BRI` -> Brightness of LED display (values ranging from 0 lowest to 15 highest)
+
+`ASC` -> ASCII coversion to enable correct translation of UTF8 Extended ASCII Characters
+
 From version v2022.08.14, to send a message, you can send only some parameters, the other will take from the device default (currently hardcoded).
 
 Please Note: The MSG parameter needs to be present to send a message, omitting the MSG parameter or sending no parameters will result in display termination of current message (end of message scrolling).
@@ -157,7 +157,6 @@ BUZ 10
 DEL 35
 ASC 1
 
-
 MQTT Topic Publishing/Subscribing
 ---------------------------------
 If you enter the following Topic Prefix "rdadotmatrix/generic" as part of your MQTT config, the following log message can be seen from console if "#define DEBUG 1" is defined:
@@ -184,12 +183,14 @@ Subscribe to topic: ESP-MSG-ABCDEF/json
 ```
 
 Please Note:
+
 1. Any message published to a subscribed topic ending with /json will require a json message with any number of parameters passed above (MSG is mandatory to display a message).
+
 2. Any message published to a subscribed topic NOT ending with /json will take a message as a plain string with no additional parameter. (hard coded default parameters will be used, in future configurable I hope).
 
-it is also possible to use # for wildcard (at the end of a topic only), and + as part of a topic to indicate part of a topic path as a wildcard.
+It is also possible to use # for wildcard (at the end of a topic only), and + as part of a topic to indicate part of a topic path as a wildcard.
 
-for example if you configure topic prefix as "rdadotmatrix/generic/#" you would get the following topic subscriptions:
+For example if you configure topic prefix as "rdadotmatrix/generic/#" you would get the following topic subscriptions:
 ```
 Restoring MQTT connection...
 ESP-MSG-ABCDEF connected to MQTT Server: 192.168.1.100:1883
@@ -201,8 +202,6 @@ Subscribe to topic: ESP-MSG-ABCDEF
 Subscribe to topic: ESP-MSG-ABCDEF/json
 ```
 Please Note: with a wildcard "#" at the end of the topic you would still be able to publish messages with parameters to a topic such as rdadotmatrix/generic/whatever/json or rdadotmatrix/generic/whatever/anotherlevel/json or any other longer multilevel topic.
-
-
 
 Send Messages using curl from cli:
 ---------------------------------
@@ -224,20 +223,17 @@ http://192.168.1.89/arg?MSG=This+is+a+test+message%21&REP=10&BUZ=10&DEL=35&BRI=7
 ```
 see https://meyerweb.com/eric/tools/dencoder/ for URL encode and decode 
 
-
-
 Send Messages from Home assistant Dashboard Card:
 ---------------------------------
 ***Please Note: you'll have to use the base64 encoded as the username:password to send messages via HTTP***
 
-you should configure the following in your secrets.yaml file if you are using default credentials:
+You should configure the following in your secrets.yaml file if you are using default credentials:
 
 ```
 dot_matrix_secret_header: "Basic YWRtaW46ZXNwODI2Ng=="
 
 ````
-for any other you can calculate your own for example enter admin:esp8266 in http://n-cg.net/base64.htm and click encode to obtain YWRtaW46ZXNwODI2Ng==
-
+For any other you can calculate your own for example enter admin:esp8266 in http://n-cg.net/base64.htm and click encode to obtain YWRtaW46ZXNwODI2Ng==
 
 You can for example define your own home assistant dashboard/lovelace interface to send test to the message board:
 
@@ -309,7 +305,6 @@ action:
 mode: single 
 ```
 
-
 4. Also create the following home assistant scripts:
 
 script.message_dot_matrix:
@@ -365,7 +360,6 @@ sequence:
 mode: single
 ```
 
-
 Home Assistant Feedreader
 ---------------------------------
 
@@ -385,7 +379,7 @@ feedreader:
   max_entries: 5
 ```
 
-and an http call with arguments or json api again in configuration.yaml
+And an http call with arguments or json api again in configuration.yaml
 
 ```
 rest_command:
@@ -406,7 +400,8 @@ rest_command:
 
 Or you can use MQTT.
 
-Please Note: it is important you use /json at the end of the topic. 
+Please Note: it is important you use /json at the end of the topic.
+
 Topics ending with /json are automatically subscribed regardless of the configure topic prefix.
 
 Configure the following script:
@@ -426,7 +421,6 @@ sequence:
 		}
 mode: single
 ```
-
 
 2. Then configure an automation as follows if you have for example 2 different message boards and you want to send to both:
 ```
@@ -481,7 +475,6 @@ action:
       bri: 7
 mode: single
 ```
-
 
 Send messages from NodeRed
 ---------------------------------
