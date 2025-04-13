@@ -2,16 +2,16 @@
 // Tested on "ESP8266 Boards (3.0.2) / NodeMCU 1.0 (ESP12E-Module)"
 // Also tested on "Wemos/LoLin D1 Mini"
 
-#include <MD_MAX72xx.h>
-#include <MD_Parola.h>
-#include <SPI.h>
-#include <ESP8266mDNS.h> 
-#include <WiFiManager.h>
-#include <EasyButton.h>
+#include <MD_MAX72xx.h>    // by MajicDesign
+#include <MD_Parola.h>     // by MajicDesign
+#include <SPI.h>           // Included in ESP8266
+#include <ESP8266mDNS.h>   // Included in ESP8266
+#include <WiFiManager.h>   // by tzapu
+#include <EasyButton.h>    // by Evert Arias, ver 2.0.3
 #include <stdio.h>
-#include <ArduinoJson.h> 
-#include <LittleFS.h>
-#include <PubSubClient.h>
+#include <ArduinoJson.h>   // by Benoit Blanchon, ver 6.21.5
+#include <LittleFS.h>      // Included in ESP8266
+#include <PubSubClient.h>  // by Nick O'Leary 
 #include "01_Shared.h"
 
 #define VERSION "v2025.04.11"
