@@ -1,5 +1,7 @@
-esp8266_max7219_rda_msg_board
-============================================================
+# max7219_esp8266_msg_board
+
+Forked from https://github.com/rdeangel/esp8266_max7219_rda_msg_board
+
 MAX7219 RDA Message Board
 
 This is an ESP8266 based message board and it has been mainly put togheter to display scrolling messages from remote systems or users such as:
@@ -9,8 +11,8 @@ This is an ESP8266 based message board and it has been mainly put togheter to di
 4. A built-in webgui
 
 
-"Wifi Setup Mode" on first start or on config wipe
----------------------------------
+## Wifi Setup Mode" on first start or on config wipe
+
 You'll need to configure your wifi network by connecting to:
 ```
 Wifi SSID: ESP-MSG-ABCDEF  (where ABCDEF are the last 6 digit of mac address)
@@ -29,9 +31,7 @@ I suggest statically assigning an IP on your DHCP so the board always uses the s
 
 Please Note: Locally you can also use the hostname in mdns format "ESP-MSG-ABCDEF.local" instead of the IP address.
 
-
-Default username and password:
----------------------------------
+## Default username and password:
 ```
 username: admin
 password: esp8266
@@ -40,8 +40,8 @@ password: esp8266
 ***You can enable "#define ENABLE_FLASH_BUTTON 1" in 01_Shared.h to use the ESP FLASH button on the ESP8266 or browse to /factoryreset to reset username and password to admin/esp8266, wipe wifi and mqtt configuration and reset the board (the "RST" button only restarts the board with no changes)***
 
 
-Key Features:
----------------------------------
+## Key Features:
+
 * HTTP webserver / message board web interface
 * Send messages via HTTP using automation systems or scripts ("URI" or "Json api" parameters supported) 
 * Send messages via MQTT Server (User Authentication or Anonymous) ("Json" parameters or "Plain" messages supported)
@@ -78,7 +78,7 @@ MAX7219 Pinout Code Definition (change pin below in 01_Shared.h if you use diffe
 ```
 #define CLK_PIN   D5  // or SCK
 #define DATA_PIN  D7  // or MOSI
-#define CS_PIN    D8
+#define CS_PIN    D6  // CS
 ```
 
 Buzzer Pinout Code Definition (change pin below in 01_Shared.h if you use different pins):
@@ -89,29 +89,29 @@ Buzzer Pinout Code Definition (change pin below in 01_Shared.h if you use differ
 Web Interface
 ---------------------------------
 ![homepage](images/homepage.png)
-
+---
 ![password_change](images/password_change.png)
-
+---
 ![mqtt_config](images/mqtt_config.png)
-
+---
 ![password_change](images/update_firmware.png)
+---
+### Project Case Example 1
 
-Project Case Example 1
----------------------------------
 ![example_a1](images/example_a1.jpg)
 
 ![example_a2](images/example_a2.jpg)
 
-Project Case Example 2
----------------------------------
+### Project Case Example 2
+
 ![example_b1](images/example_b1.jpg)
-
+---
 ![example_b2](images/example_b2.jpg)
-
+---
 ![example_b3](images/example_b3.jpg)
+---
 
-URL Argument / HTTP-API and MQTT JSON Parameters:
--------------------------------------------------
+## URL Argument / HTTP-API and MQTT JSON Parameters:
 
 `MSG` -> Message to display on dot matrix
 
@@ -131,8 +131,8 @@ Please Note: The MSG parameter needs to be present to send a message, omitting t
 
 A couple of examples for sending JSON via MQTT or HTTP api.
 
-Example 1:
-```
+### Example 1:
+
 {"MSG":"Test"}
 ```
 this is equivalent to sending a message to MQTT to a non /json ending topic, every other parameter will use default parameters values currently hardcoded in 01_Shared.h.
@@ -143,8 +143,8 @@ DEL 35
 BRI 7
 ASC 1
 
-Example 2:
-```
+### Example 2:
+
 {
   "MSG":"Test",
   "BRI":"0"
@@ -157,8 +157,8 @@ BUZ 10
 DEL 35
 ASC 1
 
-MQTT Topic Publishing/Subscribing
----------------------------------
+## MQTT Topic Publishing/Subscribing
+
 If you enter the following Topic Prefix "rdadotmatrix/generic" as part of your MQTT config, the following log message can be seen from console if "#define DEBUG 1" is defined:
 ```
 Publishing to topic hostname/status: connected (this currently has no use)
@@ -169,7 +169,7 @@ Subscribe to topic: root_topic/topic/json
 Subscribe to topic: hostname
 Subscribe to topic: hostname/json
 ```
-Example:
+#### Example:
 ```
 Restoring MQTT connection...
 ESP-MSG-ABCDEF connected to MQTT Server: 192.168.1.100:1883
@@ -182,7 +182,7 @@ Subscribe to topic: ESP-MSG-ABCDEF
 Subscribe to topic: ESP-MSG-ABCDEF/json
 ```
 
-Please Note:
+### Please Note:
 
 1. Any message published to a subscribed topic ending with /json will require a json message with any number of parameters passed above (MSG is mandatory to display a message).
 
@@ -203,8 +203,8 @@ Subscribe to topic: ESP-MSG-ABCDEF/json
 ```
 Please Note: with a wildcard "#" at the end of the topic you would still be able to publish messages with parameters to a topic such as rdadotmatrix/generic/whatever/json or rdadotmatrix/generic/whatever/anotherlevel/json or any other longer multilevel topic.
 
-Send Messages using curl from cli:
----------------------------------
+## Send Messages using curl from cli:
+
 ```
 curl --user admin:esp8266 -X POST http://192.168.1.89/api -H 'Content-Type: application/json' -d '{"MSG":"This is a test message","REP":"4","BUZ":"10","DEL":"30","BRI":"7","ASC":"1"}'
 ```
@@ -221,27 +221,27 @@ You can also use this URL encoded link fromatting to send messages from a browse
 ```
 http://192.168.1.89/arg?MSG=This+is+a+test+message%21&REP=10&BUZ=10&DEL=35&BRI=7&ASC=1
 ```
-see https://meyerweb.com/eric/tools/dencoder/ for URL encode and decode 
+See https://meyerweb.com/eric/tools/dencoder/ for URL encode and decode 
 
-Send Messages from Home assistant Dashboard Card:
----------------------------------
+## Send Messages from Home assistant Dashboard Card:
+
 ***Please Note: you'll have to use the base64 encoded as the username:password to send messages via HTTP***
 
 You should configure the following in your secrets.yaml file if you are using default credentials:
 
 ```
 dot_matrix_secret_header: "Basic YWRtaW46ZXNwODI2Ng=="
-
 ````
+
 For any other you can calculate your own for example enter admin:esp8266 in http://n-cg.net/base64.htm and click encode to obtain YWRtaW46ZXNwODI2Ng==
 
 You can for example define your own home assistant dashboard/lovelace interface to send test to the message board:
 
 ![home_assistant_gui_pannel](images/home_assistant_gui_pannel.jpg)
 
-Follow these steps:
+### Follow these steps:
 
-1. Create the relevant custom entities from home assistant gui and enter this in your lovelace interface tab for example:
+#### 1. Create the relevant custom entities from home assistant gui and enter this in your lovelace interface tab for example:
 
 ```
 type: entities
@@ -261,8 +261,7 @@ entities:
 title: Message Boards Texting (MAX7219)
 ```
 
-
-2. Enter this in configuration.yaml:
+#### 2. Enter this in configuration.yaml:
 ```
 rest_command:
   message_dot_matrix_arg_http:
@@ -279,8 +278,7 @@ rest_command:
       authorization: !secret dot_matrix_secret_header
 ```
 
-
-3. if you have multiple message boards you can create an automations to switch IP address from the input_select list entity:
+#### 3. if you have multiple message boards you can create an automations to switch IP address from the input_select list entity:
 
 automation.change_value_of_dot_matrix_input_text
 ```
@@ -305,7 +303,7 @@ action:
 mode: single 
 ```
 
-4. Also create the following home assistant scripts:
+#### 4. Also create the following home assistant scripts:
 
 script.message_dot_matrix:
 ```
@@ -325,7 +323,7 @@ mode: single
 alias: Clear Dot Matrix
 ```
 
-5. For MQTT send message from home assistant, you can create the following script:
+#### 5. For MQTT send message from home assistant, you can create the following script:
 
 script.message_dot_matrix_mqtt
 ```
@@ -345,7 +343,7 @@ sequence:
 mode: single
 ```
 
-6. To clear message repeats (stop displaying current message):
+#### 6. To clear message repeats (stop displaying current message):
 
 script.clear_dot_matrix_mqtt
 ```
@@ -360,12 +358,11 @@ sequence:
 mode: single
 ```
 
-Home Assistant Feedreader
----------------------------------
+## Home Assistant Feedreader
 
 You can also use home assistant RSS Feeds to send news text to the message board or even better NodeRed (which I prefer for this, included in the node-red import file node_red_flow.json)
 
-1. enter some rss feeds like the below for example in your home assistant configuration.yaml
+#### 1. enter some rss feeds like the below for example in your home assistant configuration.yaml
 ```
 feedreader:
   urls:
@@ -422,7 +419,7 @@ sequence:
 mode: single
 ```
 
-2. Then configure an automation as follows if you have for example 2 different message boards and you want to send to both:
+#### 2. Then configure an automation as follows if you have for example 2 different message boards and you want to send to both:
 ```
 alias: Feed Reader To Matrix via HTTP
 description: ''
@@ -476,8 +473,8 @@ action:
 mode: single
 ```
 
-Send messages from NodeRed
----------------------------------
+## Send messages from NodeRed
+
 Import file node_red_flow.json into nodered.
 
 Please Note: There are several subflows (look inside). 
