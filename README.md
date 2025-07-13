@@ -95,31 +95,15 @@ Web Interface
 ![password_change](images/update_firmware.png)
 ---
 
-### Project Case Example 1
----
-![example_a1](images/example_a1.jpg)
----
-![example_a2](images/example_a2.jpg)
----
-
-### Project Case Example 2
-
-![example_b1](images/example_b1.jpg)
----
-![example_b2](images/example_b2.jpg)
----
-![example_b3](images/example_b3.jpg)
----
-
 ## URL Argument / HTTP-API and MQTT JSON Parameters:
-|Arg   | Description                                                                       |
-|------|-----------------------------------------------------------------------------------|
-|`MSG` | Message to display on dot matrix                                                  |
-|`REP` |-> Number of times the message scrolls horizontally across the dot matrix          |
-|`BUZ` |-> Number of times the buzzer makes a sound (chirps) in repeated succession        |
-|`DEL` |-> Delay in millisecond for each scrolling step (speed of scrolling message)       |
-|`BRI` |-> Brightness of LED display (values ranging from 0 lowest to 15 highest)          |
-|`ASC` |-> ASCII coversion to enable correct translation of UTF8 Extended ASCII Characters |
+|Arg   | Description                                                                     |
+|------|---------------------------------------------------------------------------------|
+|`MSG` | Message to display on dot matrix                                                |
+|`REP` | Number of times the message scrolls horizontally across the dot matrix          |
+|`BUZ` | Number of times the buzzer makes a sound (chirps) in repeated succession        |
+|`DEL` | Delay in millisecond for each scrolling step (speed of scrolling message)       |
+|`BRI` | Brightness of LED display (values ranging from 0 lowest to 15 highest)          |
+|`ASC` | ASCII coversion to enable correct translation of UTF8 Extended ASCII Characters |
 
 From version v2022.08.14, to send a message, you can send only some parameters, the other will take from the device default (currently hardcoded).
 
