@@ -55,10 +55,10 @@ void loadConfiguration(const char *webConfigFile, webConfigObj &webConfig) {
 
   // Copy values from the JsonDocument to the webConfig
   strlcpy(webConfig.usernameWebHolder,                  // <- destination
-          doc["usernameWebHolder"],                  // <- source
+          doc["usernameWebHolder"],                     // <- source
           sizeof(webConfig.usernameWebHolder));         // <- destination's capacity
   strlcpy(webConfig.passwordWebHolder,                  // <- destination
-          doc["passwordWebHolder"],                  // <- source
+          doc["passwordWebHolder"],                     // <- source
           sizeof(webConfig.passwordWebHolder));         // <- destination's capacity
 
   // Close the file (Curiously, File's destructor doesn't close the file)
@@ -113,14 +113,14 @@ void printWebFile(const char *webConfigFile) {
   file.close();
 }
 
-//change login credentials and store into config file
+// Change login credentials and store into config file
 void changeWebLoginCredentials() {
-  //set username and password from webpage to config object
+  // Set username and password from webpage to config object
   strlcpy(webConfig.usernameWebHolder, newWebUsername, sizeof(webConfig.usernameWebHolder));
   strlcpy(webConfig.passwordWebHolder, newWebPassword, sizeof(webConfig.passwordWebHolder));
-  //save username and password from config object to config file
+  // Save username and password from config object to config file
   saveConfiguration(webConfigFile, webConfig);
-  //set the http/https credentials to the new password
+  // Set the http/https credentials to the new password
   strlcpy(web_username, webConfig.usernameWebHolder, sizeof(web_username));
   strlcpy(web_password, webConfig.passwordWebHolder, sizeof(web_password));
   // Dump config file
@@ -129,16 +129,16 @@ void changeWebLoginCredentials() {
 }
 
 void initWebStoreConfig() {
-  //load config stored in config file
+  // Load config stored in config file
   Serial.println(F("Loading web configuration...\n"));
   loadConfiguration(webConfigFile, webConfig);
-  //if no username is defined in config file store default
+  // If no username is defined in config file store default
   if ((webConfig.usernameWebHolder != NULL) && (webConfig.usernameWebHolder[0] == '\0')) {
     PRINT("no username set, setting default username: ", web_username);
     strlcpy(webConfig.usernameWebHolder, web_username, sizeof(webConfig.usernameWebHolder));
     saveWebConfigAtStart = true;
   }
-  //if no password is defined in config file store default
+  // If no password is defined in config file store default
   if ((webConfig.passwordWebHolder != NULL) && (webConfig.passwordWebHolder[0] == '\0')) {
     PRINTS("\n")
     PRINT("no password set, setting default password: ", web_password);
@@ -146,7 +146,7 @@ void initWebStoreConfig() {
     saveWebConfigAtStart = true;
   }
   PRINTS("\n")
-  //set http/https server to config file defined values or defined default
+  // Set http/https server to config file defined values or defined default
   strlcpy(web_username, webConfig.usernameWebHolder, sizeof(web_username));
   strlcpy(web_password, webConfig.passwordWebHolder, sizeof(web_password));
   
@@ -163,13 +163,13 @@ void initWebStoreConfig() {
 
 //################################ START OF SPECIFIC HTTP SERVER FUNCTIONS ################################//
 void showWebpageHttp() {
-  String s = MAIN_page; //Read HTML contents
-  serverHttp.send(200, "text/html", s); //Send web page
+  String s = MAIN_page;                  // Read HTML contents
+  serverHttp.send(200, "text/html", s);  // Send web page
 }
 
 void showChangeCredentialsHttp() {
-  String s = CHANGECREDENTIALS_page; //Read HTML contents
-  serverHttp.send(200, "text/html", s); //Send web page
+  String s = CHANGECREDENTIALS_page;     // Read HTML contents
+  serverHttp.send(200, "text/html", s);  // Send web page
 }
 
 void usernamePasswordHttp() {
@@ -196,8 +196,8 @@ void usernamePasswordHttp() {
 }
 
 void showChangeMqttConfigHttp() {
-  String s = CHANGEMQTTCONFIG_page; //Read HTML contents
-  serverHttp.send(200, "text/html", s); //Send web page
+  String s = CHANGEMQTTCONFIG_page;     // Read HTML contents
+  serverHttp.send(200, "text/html", s); // Send web page
 }
 
 void onMqttConfigChangeHttp() {
@@ -386,7 +386,7 @@ void httpWebDirDef(){
       WiFiUDP::stopAll();
       Serial.printf("Update: %s\n", upload.filename.c_str());
       uint32_t maxSketchSpace = (ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000;
-      if (!Update.begin(maxSketchSpace)) { //start with max available size
+      if (!Update.begin(maxSketchSpace)) { // Start with max available size
         Update.printError(Serial);
       }
     } 
@@ -396,7 +396,7 @@ void httpWebDirDef(){
       }
     } 
     else if (upload.status == UPLOAD_FILE_END) {
-      if (Update.end(true)) { //true to set the size to the current progress
+      if (Update.end(true)) {            // True to set the size to the current progress
         Serial.printf("Update Success: %u\nRebooting...\n", upload.totalSize);
         serverHttp.send(200, "text/html", SUBMITUPDATESUCCESS_page);
         delay(1000);
@@ -409,6 +409,7 @@ void httpWebDirDef(){
     }
     yield();
   });
+
   serverHttp.onNotFound([]() {
     if (!serverHttp.authenticate(web_username, web_password)) {
       return serverHttp.requestAuthentication();
