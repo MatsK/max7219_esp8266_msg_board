@@ -24,22 +24,19 @@ MD_Parola P = MD_Parola(HARDWARE_TYPE, CS_PIN, MAX_DEVICES);
 //MD_Parola P = MD_Parola(HARDWARE_TYPE, DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);
 
 // WifiManager use mdns
-#define WM_MDNS 1
-#define WM_DEBUG_LEVEL 0
+#define WM_MDNS             1
+#define WM_DEBUG_LEVEL      0
 
 // DEBUG ON OR OFF
-#define DEBUG 0
-#define PRINT_CALLBACK  0
-#define PAUSE_TIME  0
+#define DEBUG               0
+#define PRINT_CALLBACK      0
+#define PAUSE_TIME          0
 
-// Flash button enabled/disaled
-#define ENABLE_FLASH_BUTTON 0
+#define ENABLE_FLASH_BUTTON 0             // Flash button enabled/disaled
 
-#if ENABLE_FLASH_BUTTON
-  // Built button used to wipe device config
-  #define FLASH_BUTTON 0
-  // Instance of the button
-  EasyButton flash_button(FLASH_BUTTON);
+#if ENABLE_FLASH_BUTTON                   // Built button used to wipe device config
+  #define FLASH_BUTTON      0
+  EasyButton flash_button(FLASH_BUTTON);  // Instance of the button
 #endif
 
 // You must enable either "HTTP_SERVER" or "HTTPS_SERVER" to "1", or both.
@@ -83,16 +80,16 @@ const char* ap_mode_password;
 //const char* ap_mode_ssid = clientId.c_str();
 //const char* ap_mode_password = "wifi-setup";
 
-char mqttOnOff[STDSIZE] = "off";
-char mqttAnonymous[STDSIZE] = "off";
-char mqttAlert[STDSIZE] = "off";
-char mqttUsername[STDSIZE] = "";
-char mqttPassword[STDSIZE] = "";
+char mqttOnOff[STDSIZE]         = "off";
+char mqttAnonymous[STDSIZE]     = "off";
+char mqttAlert[STDSIZE]         = "off";
+char mqttUsername[STDSIZE]      = "";
+char mqttPassword[STDSIZE]      = "";
 char mqttServerAddress[STDSIZE] = "192.168.1.1";
-char mqttServerPort[STDSIZE] = "1883";
-char mqttTopicPrefix[STDSIZE] = "rdadotmatrix";
-char mqttTopicDevice[STDSIZE] = "";
-char mqttTopicRoot[STDSIZE] = "";
+char mqttServerPort[STDSIZE]    = "1883";
+char mqttTopicPrefix[STDSIZE]   = "rdadotmatrix";
+char mqttTopicDevice[STDSIZE]   = "";
+char mqttTopicRoot[STDSIZE]     = "";
 
 const unsigned long mqttConnectTimeIntervall = 15000;  // 15*60*1000 = 15 minutes
 long mqttLastReconnectAttempt = 0;
@@ -136,9 +133,9 @@ String changeCredVars;
 String updateVars;
 char newWebUsername[STDSIZE];
 char newWebPassword[STDSIZE];
-bool newWebUsernameAvailable = false;
-bool newWebPasswordAvailable = false;
-bool saveWebConfigAtStart = false;
+bool newWebUsernameAvailable       = false;
+bool newWebPasswordAvailable       = false;
+bool saveWebConfigAtStart          = false;
 char newMqttOnOff[STDSIZE];
 char newMqttAnonymous[STDSIZE];
 char newMqttAlert[STDSIZE];
@@ -147,44 +144,44 @@ char newMqttPassword[STDSIZE];
 char newMqttServerAddress[STDSIZE];
 char newMqttServerPort[STDSIZE];
 char newMqttTopicPrefix[STDSIZE];
-bool newMqttOnOffAvailable = false;
-bool newMqttAnonymousAvailable = false;
-bool newMqttAlertAvailable = false;
-bool newMqttUsernameAvailable = false;
-bool newMqttPasswordAvailable = false;
-bool newMqttServerAddressAvailable = false;
-bool newMqttServerPortAvailable = false;
-bool newMqttTopicPrefixAvailable = false;
-char mqttStatusMsg[64] = "";
-char mqttAlertMessage[128] = "";
-bool saveMqttConfigAtStart = false;
-bool alertMqttConnect =  false;   // Not yet implemented on gui, only an hard setting for now
+bool newMqttOnOffAvailable          = false;
+bool newMqttAnonymousAvailable      = false;
+bool newMqttAlertAvailable          = false;
+bool newMqttUsernameAvailable       = false;
+bool newMqttPasswordAvailable       = false;
+bool newMqttServerAddressAvailable  = false;
+bool newMqttServerPortAvailable     = false;
+bool newMqttTopicPrefixAvailable    = false;
+char mqttStatusMsg[64]              = "";
+char mqttAlertMessage[128]          = "";
+bool saveMqttConfigAtStart          = false;
+bool alertMqttConnect               = false;   // Not yet implemented on gui, only an hard setting for now
 char curMessage[MSG_SIZE];
 char newMessage[MSG_SIZE];
 char newRepeat[REP_SIZE];
-char repeatDefault[REP_SIZE] = "10";
+char repeatDefault[REP_SIZE]        = "10";
 char newBuz[BUZ_SIZE];
-char buzzerDefault[BUZ_SIZE] = "10";
+char buzzerDefault[BUZ_SIZE]        = "10";
 char newDelay[DEL_SIZE];
-char scrollDelayDefault[DEL_SIZE] = "35";
+char scrollDelayDefault[DEL_SIZE]   = "35";
 char newBrightness[BRI_SIZE];
 char ledBrightnessDefault[BRI_SIZE] = "7";
 char newAsciiConv[ASC_SIZE];
-char asciiConvDefault[ASC_SIZE] = "1";
-bool firstMessage = true;
-bool firstMessageOff = false;
-bool newMessageAvailable = false;
-bool newRepeatAvailable = false;
-bool newBuzAvailable = false;
-bool newDelayAvailable = false;
-bool newBrightnessAvailable = false;
-bool newAsciiConvAvailable = false;
-bool endSetupModeMsg = false;
-bool afterWiFiConfig = false;
+char asciiConvDefault[ASC_SIZE]     = "1";
+bool firstMessage                   = true;
+bool firstMessageOff                = false;
+bool newMessageAvailable            = false;
+bool newRepeatAvailable             = false;
+bool newBuzAvailable                = false;
+bool newDelayAvailable              = false;
+bool newBrightnessAvailable         = false;
+bool newAsciiConvAvailable          = false;
+bool endSetupModeMsg                = false;
+bool afterWiFiConfig                = false;
 char assignedIP[255];
-int scrollDelay = atoi(scrollDelayDefault);
-int ledBrightness = atoi(ledBrightnessDefault);
-int repeatCount = 0;
+int scrollDelay                     = atoi(scrollDelayDefault);
+int ledBrightness                   = atoi(ledBrightnessDefault);
+int repeatCount                     = 0;
 IPAddress apModeIP;
 String apModeSSID;
 
@@ -196,7 +193,7 @@ String apModeSSID;
 #define PRINTS(s)
 #endif
 
-uint8_t degC[] = { 5, 3, 3, 56, 68, 68, 68 };                    // Deg C
+uint8_t degC[] = { 5, 3, 3, 56, 68, 68, 68 };                      // Deg C
 //uint8_t degF[] = { 6, 3, 3, 124, 20, 20, 4 };                    // Deg F
 //uint8_t waveSine[] = { 8, 1, 14, 112, 128, 128, 112, 14, 1 };    // Sine wave
 //uint8_t waveSqar[] = { 8, 1, 1, 255, 128, 128, 128, 255, 1 };    // Square wave
