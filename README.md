@@ -10,35 +10,33 @@ This is an ESP8266 based message board and it has been mainly put togheter to di
 3. A browser URL Link
 4. A built-in webgui
 
+## WiFi Setup Mode (on first start or on config wipe)
 
-## Wifi Setup Mode" on first start or on config wipe
-
-You'll need to configure your wifi network by connecting to:
+You'll need to configure your WiFi network by connecting to:
 ```
-Wifi SSID: ESP-MSG-ABCDEF  (where ABCDEF are the last 6 digit of mac address)
-Wifi Secret: wifi-setup
+WiFi SSID: ESP-MSG-ABCDEF  (where ABCDEF are the last 6 digit of mac address)
+WiFi Secret: wifi-setup
 ```
 If the browser doesn't open/redirect automatically (it should on recent OSes) browse to http://192.168.4.1 and:
-1. Click on "Configure Wifi"
+1. Click on "Configure WiFi"
 2. Enter your Wifi details
 3. Click on "Save"
 
-The board will reboot and should now boot in "Wifi Message Mode".
+The board will reboot and should now boot in "WiFi Message Mode".
 
-Connect to your wifi network and look for the IP the board obtained from DHCP (it should be displayed once at the end of the first message upon boot).
+Connect to your WiFi network and look for the IP the board obtained from DHCP (it should be displayed once at the end of the first message upon boot).
 
 I suggest statically assigning an IP on your DHCP so the board always uses the same IP and can be easily accessed. (This is not important for MQTT Messaging but it is for HTTP Web Interface/Messaging).
 
-Please Note: Locally you can also use the hostname in mdns format "ESP-MSG-ABCDEF.local" instead of the IP address.
+**Note:** Locally you can also use the hostname in mDNS format "ESP-MSG-ABCDEF.local" instead of the IP address.
 
 ## Default username and password:
 ```
 username: admin
 password: esp8266
-
 ```
-***You can enable "#define ENABLE_FLASH_BUTTON 1" in 01_Shared.h to use the ESP FLASH button on the ESP8266 or browse to /factoryreset to reset username and password to admin/esp8266, wipe wifi and mqtt configuration and reset the board (the "RST" button only restarts the board with no changes)***
 
+You can enable `#define ENABLE_FLASH_BUTTON 1` in `01_Shared.h` to use the ESP FLASH button on the ESP8266 or browse to /factoryreset to reset username and password to admin/esp8266, wipe WiFi and MQTT configuration and reset the board (the "RST" button only restarts the board with no changes)***
 
 ## Key Features:
 
@@ -48,10 +46,9 @@ password: esp8266
 * Support for UTF8 Extended ASCII Characters (see https://www.utf8-chartable.de/)
 * Change/Store HTTP credentials
 * Change/Store MQTT Config (enable/disable MQTT and connect/disconnect alerting)
-* MDNS Supported (browse and send messages via http to mdns name (eg. ESP-MSG-ABCDEF.local) or to selected IP address (future improvement ability to change hostname)
-* WifiManager provides a web portal to configure wifi SSID and Password when one hasn't been previously configured
-* Press ESP8266 FLASH button (or browse to /factoryreset) to wipe Wifi SSID Config, HTTP credentials and MQTT Setting.
-
+* mDNS Supported (browse and send messages via http to mdns name (eg. ESP-MSG-ABCDEF.local) or to selected IP address (future improvement ability to change hostname)
+* WifiManager provides a web portal to configure WiFi SSID and Password when one hasn't been previously configured
+* Press ESP8266 FLASH button (or browse to /factoryreset) to wipe WiFi SSID Config, HTTP credentials and MQTT Setting.
 
 UTF8 Extended ASCII Characters
 ---------------------------------
@@ -63,7 +60,8 @@ Characters that can't always be send as part of a message (with exception of nod
 ``` 
 #%&+;
 ```
-Please Note: From the node-red import file node_red_flow.json (it uses MQTT) you'll find a sub-group with a function where I escape characters like backslash or double-quotes which can stop a message from displaying at all. This is particularly useful if working with RSS feeds in node-red.
+
+**Note:** From the node-red import file node_red_flow.json (it uses MQTT) you'll find a sub-group with a function where I escape characters like backslash or double-quotes which can stop a message from displaying at all. This is particularly useful if working with RSS feeds in node-red.
 
 Board Wiring
 ---------------------------------
@@ -96,11 +94,13 @@ Web Interface
 ---
 ![password_change](images/update_firmware.png)
 ---
+
 ### Project Case Example 1
-
+---
 ![example_a1](images/example_a1.jpg)
-
+---
 ![example_a2](images/example_a2.jpg)
+---
 
 ### Project Case Example 2
 
@@ -112,39 +112,39 @@ Web Interface
 ---
 
 ## URL Argument / HTTP-API and MQTT JSON Parameters:
-
-`MSG` -> Message to display on dot matrix
-
-`REP` -> Number of times the message scrolls horizontally across the dot matrix
-
-`BUZ` -> Number of times the buzzer makes a sound (chirps) in repeated succession
-
-`DEL` -> Delay in millisecond for each scrolling step (speed of scrolling message)
-
-`BRI` -> Brightness of LED display (values ranging from 0 lowest to 15 highest)
-
-`ASC` -> ASCII coversion to enable correct translation of UTF8 Extended ASCII Characters
+|Arg   | Description                                                                       |
+|------|-----------------------------------------------------------------------------------|
+|`MSG` | Message to display on dot matrix                                                  |
+|`REP` |-> Number of times the message scrolls horizontally across the dot matrix          |
+|`BUZ` |-> Number of times the buzzer makes a sound (chirps) in repeated succession        |
+|`DEL` |-> Delay in millisecond for each scrolling step (speed of scrolling message)       |
+|`BRI` |-> Brightness of LED display (values ranging from 0 lowest to 15 highest)          |
+|`ASC` |-> ASCII coversion to enable correct translation of UTF8 Extended ASCII Characters |
 
 From version v2022.08.14, to send a message, you can send only some parameters, the other will take from the device default (currently hardcoded).
 
-Please Note: The MSG parameter needs to be present to send a message, omitting the MSG parameter or sending no parameters will result in display termination of current message (end of message scrolling).
+**Note:** The MSG parameter needs to be present to send a message, omitting the MSG parameter or sending no parameters will result in display termination of current message (end of message scrolling).
 
-A couple of examples for sending JSON via MQTT or HTTP api.
+A couple of examples for sending JSON via MQTT or HTTP API.
 
 ### Example 1:
 
-{"MSG":"Test"}
-```
+`{"MSG":"Test"}`
+
 this is equivalent to sending a message to MQTT to a non /json ending topic, every other parameter will use default parameters values currently hardcoded in 01_Shared.h.
+
 The following hardcoded defaults that will be use are:
+
+```
 REP 10
 BUZ 10
 DEL 35
 BRI 7
 ASC 1
+```
 
 ### Example 2:
-
+```
 {
   "MSG":"Test",
   "BRI":"0"
@@ -152,10 +152,12 @@ ASC 1
 ```
 This will send a Test message and display it at the lowest possible brightness.
 The following hardcoded default parameters will be use:
+```
 REP 10
 BUZ 10
 DEL 35
 ASC 1
+```
 
 ## MQTT Topic Publishing/Subscribing
 
@@ -169,6 +171,7 @@ Subscribe to topic: root_topic/topic/json
 Subscribe to topic: hostname
 Subscribe to topic: hostname/json
 ```
+
 #### Example:
 ```
 Restoring MQTT connection...
@@ -182,7 +185,7 @@ Subscribe to topic: ESP-MSG-ABCDEF
 Subscribe to topic: ESP-MSG-ABCDEF/json
 ```
 
-### Please Note:
+### Note:
 
 1. Any message published to a subscribed topic ending with /json will require a json message with any number of parameters passed above (MSG is mandatory to display a message).
 
@@ -225,7 +228,7 @@ See https://meyerweb.com/eric/tools/dencoder/ for URL encode and decode
 
 ## Send Messages from Home assistant Dashboard Card:
 
-***Please Note: you'll have to use the base64 encoded as the username:password to send messages via HTTP***
+***Note: you'll have to use the base64 encoded as the username:password to send messages via HTTP***
 
 You should configure the following in your secrets.yaml file if you are using default credentials:
 
@@ -397,7 +400,7 @@ rest_command:
 
 Or you can use MQTT.
 
-Please Note: it is important you use /json at the end of the topic.
+**Note:** it is important you use /json at the end of the topic.
 
 Topics ending with /json are automatically subscribed regardless of the configure topic prefix.
 
