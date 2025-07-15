@@ -9,6 +9,18 @@ This is an ESP8266 based message board and it has been mainly put togheter to di
 4. A browser URL Link
 5. A built-in webgui
 
+## Key Features:
+
+* HTTP webserver / message board web interface
+* Send messages via HTTP using automation systems or scripts ("URI" or "Json api" parameters supported) 
+* Send messages via MQTT Server (User Authentication or Anonymous) ("Json" parameters or "Plain" messages supported)
+* Support for UTF8 Extended ASCII Characters (see https://www.utf8-chartable.de/)
+* Change/Store HTTP credentials
+* Change/Store MQTT Config (enable/disable MQTT and connect/disconnect alerting)
+* mDNS Supported (browse and send messages via http to mdns name (eg. ESP-MSG-ABCDEF.local) or to selected IP address (future improvement ability to change hostname)
+* WifiManager provides a web portal to configure WiFi SSID and Password when one hasn't been previously configured
+* Press ESP8266 FLASH button (or browse to /factoryreset) to wipe WiFi SSID Config, HTTP credentials and MQTT Setting.
+
 ## WiFi Setup Mode (on first start or on config wipe)
 
 You'll need to configure your WiFi network by connecting to:
@@ -36,18 +48,6 @@ password: esp8266
 ```
 
 You can enable `#define ENABLE_FLASH_BUTTON 1` in `01_Shared.h` to use the ESP FLASH button on the ESP8266 or browse to /factoryreset to reset username and password to admin/esp8266, wipe WiFi and MQTT configuration and reset the board (the "RST" button only restarts the board with no changes)***
-
-## Key Features:
-
-* HTTP webserver / message board web interface
-* Send messages via HTTP using automation systems or scripts ("URI" or "Json api" parameters supported) 
-* Send messages via MQTT Server (User Authentication or Anonymous) ("Json" parameters or "Plain" messages supported)
-* Support for UTF8 Extended ASCII Characters (see https://www.utf8-chartable.de/)
-* Change/Store HTTP credentials
-* Change/Store MQTT Config (enable/disable MQTT and connect/disconnect alerting)
-* mDNS Supported (browse and send messages via http to mdns name (eg. ESP-MSG-ABCDEF.local) or to selected IP address (future improvement ability to change hostname)
-* WifiManager provides a web portal to configure WiFi SSID and Password when one hasn't been previously configured
-* Press ESP8266 FLASH button (or browse to /factoryreset) to wipe WiFi SSID Config, HTTP credentials and MQTT Setting.
 
 UTF8 Extended ASCII Characters
 ---------------------------------
