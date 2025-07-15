@@ -1,23 +1,22 @@
-# max7219_esp8266_msg_board
+# MAX7219 RDA Message Board
 
 Forked from https://github.com/rdeangel/esp8266_max7219_rda_msg_board
 
-MAX7219 RDA Message Board
-
 This is an ESP8266 based message board and it has been mainly put togheter to display scrolling messages from remote systems or users such as:
-1. Home Assistant, using HTTP or MQTT
+1. Home Assistant or Node-Red using HTTP or MQTT
 2. Linux / Windows using curl
-3. A browser URL Link
-4. A built-in webgui
+3. Any programming language that has MQTT support
+4. A browser URL Link
+5. A built-in webgui
 
 ## WiFi Setup Mode (on first start or on config wipe)
 
 You'll need to configure your WiFi network by connecting to:
 ```
-WiFi SSID: ESP-MSG-ABCDEF  (where ABCDEF are the last 6 digit of mac address)
+WiFi SSID: ESP-MSG-ABCDEF  (where ABCDEF are the last 6 digit of the ESP8266 MAC address)
 WiFi Secret: wifi-setup
 ```
-If the browser doesn't open/redirect automatically (it should on recent OSes) browse to http://192.168.4.1 and:
+Start a Web browser and most recent browsers should open/redirect automatically and browse to http://192.168.4.1, thereafter:
 1. Click on "Configure WiFi"
 2. Enter your Wifi details
 3. Click on "Save"
