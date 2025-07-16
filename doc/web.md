@@ -8,3 +8,5 @@ Web Interface
 ---
 ![password_change](../images/update_firmware.png)
 ---
+
+### [Back to README.md](../README.md)
