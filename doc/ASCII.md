@@ -10,3 +10,4 @@ Characters that can't always be send as part of a message (with exception of nod
 #%&+;
 ```
 
+### [Back to README.md](../README.md)
