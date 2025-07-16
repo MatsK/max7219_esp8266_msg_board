@@ -2,7 +2,7 @@
 
 Board Wiring
 ---------------------------------
-![wiring](images/wiring.png)
+![wiring](../images/wiring.png)
 
 Specify number of LED modules used (change the below value in 01_Shared.h to 8, 12, etc..): 
 ```
