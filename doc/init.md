@@ -48,3 +48,5 @@ password: esp8266
 ```
 
 You can enable `#define ENABLE_FLASH_BUTTON 1` in `01_Shared.h` to use the ESP FLASH button on the ESP8266 or browse to /factoryreset to reset username and password to admin/esp8266, wipe WiFi and MQTT configuration and reset the board (the "RST" button only restarts the board with no changes)***
+
+### [Back to README.md](../README.md)
