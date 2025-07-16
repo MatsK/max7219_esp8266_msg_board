@@ -83,17 +83,6 @@ Buzzer Pinout Code Definition (change pin below in 01_Shared.h if you use differ
 #define BUZZER D1
 ```
 
-Web Interface
----------------------------------
-![homepage](images/homepage.png)
----
-![password_change](images/password_change.png)
----
-![mqtt_config](images/mqtt_config.png)
----
-![password_change](images/update_firmware.png)
----
-
 ## URL Argument / HTTP-API and MQTT JSON Parameters:
 |Arg   | Description                                                                     |
 |------|---------------------------------------------------------------------------------|
