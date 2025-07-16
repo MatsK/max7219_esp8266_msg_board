@@ -21,5 +21,18 @@ This is an ESP8266 based message board and it has been mainly put togheter to di
 * WifiManager provides a web portal to configure WiFi SSID and Password when one hasn't been previously configured
 * Press ESP8266 FLASH button (or browse to /factoryreset) to wipe WiFi SSID Config, HTTP credentials and MQTT Setting.
 
-[Initial setup of the message board](/doc/init.md)
+## Documentation
 
+### [Initial setup of the message board](/doc/init.md)
+
+### [Web interface of the message board](/doc/web.md)
+
+### [UTF-8 and Extended ASCII](/doc/ASCII.md)
+
+### [Homeassistant](/doc/HA.md)
+
+### [Node-Red with MQTT](/doc/node-red.md)
+
+### [MQTT messages](/doc/MQTT.md)
+
+[Initial setup of the message board](/doc/init.md)
