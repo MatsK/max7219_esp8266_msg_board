@@ -35,4 +35,3 @@ This is an ESP8266 based message board and it has been mainly put togheter to di
 
 ### [MQTT messages](/doc/MQTT.md)
 
-[Initial setup of the message board](/doc/init.md)
